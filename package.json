@@ -1,0 +1,21 @@
+{
+  "name": "projetobd2_ocorrencias-policiais",
+  "version": "1.0.0",
+  "description": "Aplicação para persistir e listar (ou buscar) dados de ocorrências policiais.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.33.0"
+  }
+}
