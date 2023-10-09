@@ -1,14 +1,41 @@
 @import "node_modules/ol/ol.css";
 
+#main #map{
+  display: inline-grid;
+  position: absolute;
+  width: -moz-available; 
+}
+
+#map {
+  position: absolute;
+  height: 100vh;
+}
+
+#main #register{
+  position: absolute;
+  margin-top: 150px;
+  margin-left: 60px;
+  border: solid 1px lightgrey;
+  border-radius: 2px;
+  background-color: white;
+  height: 24px;
+  cursor: pointer;
+}
+
+#api{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+    
+#form {
+  display: inline-block;
+  width: 40%;
+}
+
 html,
 body {
   margin: 0;
   height: 100%;
 }
 
-#map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-}
