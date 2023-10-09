@@ -1,21 +1,31 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../database/sequelize';
 
-class Location extends Model {
+class Ocorrencias extends Model {
     public id!: number;
-    public name!: string;
+    public titulo!: string;
+    public tipo!: string;
+    public data!: Date;
     public geom!: any;
 }
 
-Location.init(
+Ocorrencias.init(
     {
         id: {
             type: DataTypes.UUID,
             defaultValue: DataTypes.UUIDV4,
             primaryKey: true
         },
-        name: {
+        titulo: {
             type: DataTypes.STRING,
+            allowNull: false
+        },
+        tipo: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        data: {
+            type: DataTypes.DATE,
             allowNull: false
         },
         geom: {
@@ -30,10 +40,10 @@ Location.init(
 );
 
 async function sync() {
-    await Location.sync();
+    await Ocorrencias.sync();
     console.log('SYNCED');
 }
 
 sync();
 
-export default Location;
+export default Ocorrencias;

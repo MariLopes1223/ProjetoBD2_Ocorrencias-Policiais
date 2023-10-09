@@ -1,4 +1,4 @@
-import Location from '../model/Location';
+import Ocorrencias from '../model/Ocorrencias';
 import { Request, Response } from 'express';
 import Maker from '../public/assets/Marker';
 import { map } from '../public/index';
@@ -7,16 +7,20 @@ const icon = '../public/assets/point.svg';
 
 //CREATE
 async function create(req: Request, res: Response) {
-    const nome = req.body.name;
-    const coord = req.body.coordinates;
+    const titulo = req.body.titulo;
+    const tipo = req.body.tipo;
+    const data = req.body.data
+    const geom = req.body.geom;
 
     try {
-        await Location.create(
+        await Ocorrencias.create(
             {
-                name: nome,
+                titulo: titulo,
+                tipo: tipo,
+                data: data,
                 geom: {
                     type: 'Point',
-                    coordinates: coord
+                    coordinates: geom
                 }
             }
         );
@@ -28,15 +32,15 @@ async function create(req: Request, res: Response) {
 
 //READ
 async function list(req: Request, res: Response) {
-    const locations = await Location.findAll();
+    const locations = await Ocorrencias.findAll();
 
     res.send(locations);
 }
 
 async function find(req: Request, res: Response) {
-    const key = req.params.email;
+    const key = req.params.id;
 
-    const local = await Location.findByPk(key);
+    const local = await Ocorrencias.findByPk(key);
 
     if (local === null) {
         res.status(404).send('NOT FOUND');

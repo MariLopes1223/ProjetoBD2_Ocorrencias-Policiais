@@ -2,20 +2,25 @@ import Marker from "./assets/Marker";
 
 interface Point{
     id: number;
-    name: string;
+    titulo: string;
+    tipo: string;
+    data: Date;
     geom: any;
 }
 
 let increment = 0;
 
+// TODO funcoes para pegar dados do formulario preenchido pelo usuario
 async function savePoint(marker: Marker) {
     try {
         const point = {
-            name: `local ${increment+=1}`,
-            coordinates: marker.getPosition()
+            titulo: `TODO titulo dado pelo usuario ${increment+=1}`,
+            tipo: `TODO tipo de ocorrencia dado pelo usuario`,
+            data: new Date(), //data deve ser dada pelo usuario
+            geom: marker.getPosition()
         }
   
-        const resp = await fetch('http://localhost:3000/location', {
+        const resp = await fetch('http://localhost:3000/ocorrencias', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -37,7 +42,7 @@ async function savePoint(marker: Marker) {
 
 async function getPoints(): Promise<Point[]> {
     try {
-        const resp = await fetch('http://localhost:3000/location', {
+        const resp = await fetch('http://localhost:3000/ocorrencias', {
           method: 'GET',
           headers: {
             'Accept': 'application/json'
