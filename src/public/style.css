@@ -1,41 +1,51 @@
 @import "node_modules/ol/ol.css";
 
 #main #map{
-  display: inline-grid;
-  position: absolute;
-  width: -moz-available; 
+  position: relative;
+  width: 60%;
+  cursor: pointer;
+  z-index: 1;
 }
 
 #map {
-  position: absolute;
+  position: relative;
   height: 100vh;
-}
-
-#main #register{
-  position: absolute;
-  margin-top: 150px;
-  margin-left: 60px;
-  border: solid 1px lightgrey;
-  border-radius: 2px;
-  background-color: white;
-  height: 24px;
-  cursor: pointer;
+  float: right;
 }
 
 #api{
-  display: flex;
-  justify-content: center;
+  position: static;
+  float: left;
   text-align: center;
+  margin-top: 3%;
+  padding-left: 60px;
 }
+
+h1{
+  color: #F99417;
+}
+
+#oficial{
+  margin: 50px;
+  width: 30%;
+}
+
     
 #form {
-  display: inline-block;
-  width: 40%;
+  position: relative;
+  padding-top: 25%;
+  text-align: center;
+}
+
+label{
+  color: #F99417;
+  font-size: large;
 }
 
 html,
 body {
   margin: 0;
   height: 100%;
+  background-color: #363062;
 }
 
