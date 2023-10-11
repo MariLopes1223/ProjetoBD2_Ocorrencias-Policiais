@@ -1,15 +1,16 @@
 import Map from 'ol/Map';
 import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
+import VectorSource from 'ol/source/Vector';
+import VectorLayer from 'ol/layer/Vector';
 import OSM from 'ol/source/OSM';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import Marker from './assets/Marker';
 import { savePoint, getPoints} from './Map.controller';
-
 const icon = './assets/point.svg';
 
 const btnRegister = document.querySelector('#register');
-const locals:Marker[] = [];
+const markers:Marker[] = [];
 
 const map = new Map({
   target: 'map',
@@ -25,24 +26,23 @@ const map = new Map({
 });
 
 map.on('click', function (event) {
+  if(markers.length - 1 >= 0)
+    markers[markers.length-1].remove()
   const coordinates = toLonLat(event.coordinate);
-
-  // const lat = coordinates[1];
-  // const lng = coordinates[0];
-
   const marker = new Marker(map, icon, coordinates);
   marker.add();
-  locals.push(marker);
+  markers.push(marker);
 });
 
 btnRegister?.addEventListener('click', ()=>{
-  // console.log(locals[locals.length - 1]);
-  const marker = locals[locals.length-1];
-
+  const marker = markers[markers.length-1];
+  markers.pop()
   savePoint(marker);
+  map.changed()
 });
 
 function showPoints() {
+  
   getPoints().then( pnts => {
     for (const p of pnts) {
       const marker = new Marker(map, icon, p.geom.coordinates);
@@ -55,4 +55,4 @@ function showPoints() {
 
 showPoints();
 
-export {map, locals};
+export {map, markers as locals};

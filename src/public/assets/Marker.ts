@@ -52,6 +52,10 @@ class Marker {
     public getPosition(): number[] {
         return this.coordinates;
     }
+
+    public remove(){
+        this.map.removeLayer(this.layer)
+    }
 }
 
 export default Marker;

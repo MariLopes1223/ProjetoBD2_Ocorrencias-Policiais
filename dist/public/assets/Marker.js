@@ -42,5 +42,8 @@ class Marker {
     getPosition() {
         return this.coordinates;
     }
+    remove() {
+        this.map.removeLayer(this.layer);
+    }
 }
 exports.default = Marker;

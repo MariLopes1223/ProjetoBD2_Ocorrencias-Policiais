@@ -13,8 +13,8 @@ const Marker_1 = __importDefault(require("./assets/Marker"));
 const Map_controller_1 = require("./Map.controller");
 const icon = './assets/point.svg';
 const btnRegister = document.querySelector('#register');
-const locals = [];
-exports.locals = locals;
+const markers = [];
+exports.locals = markers;
 const map = new Map_1.default({
     target: 'map',
     layers: [
@@ -29,16 +29,15 @@ const map = new Map_1.default({
 });
 exports.map = map;
 map.on('click', function (event) {
+    markers.forEach((marker) => marker.remove());
     const coordinates = (0, proj_1.toLonLat)(event.coordinate);
-    // const lat = coordinates[1];
-    // const lng = coordinates[0];
     const marker = new Marker_1.default(map, icon, coordinates);
     marker.add();
-    locals.push(marker);
+    markers.push(marker);
 });
 btnRegister === null || btnRegister === void 0 ? void 0 : btnRegister.addEventListener('click', () => {
     // console.log(locals[locals.length - 1]);
-    const marker = locals[locals.length - 1];
+    const marker = markers[markers.length - 1];
     (0, Map_controller_1.savePoint)(marker);
 });
 function showPoints() {

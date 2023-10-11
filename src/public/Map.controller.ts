@@ -16,7 +16,7 @@ async function savePoint(marker: Marker) {
         const point = {
             titulo: `TODO titulo dado pelo usuario ${increment+=1}`,
             tipo: `TODO tipo de ocorrencia dado pelo usuario`,
-            data: new Date(), //data deve ser dada pelo usuario
+            data: new Date(), //data e hora deve ser dada pelo usuario
             geom: marker.getPosition()
         }
   
