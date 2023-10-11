@@ -10,13 +10,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getPoints = exports.savePoint = void 0;
-let increment = 0;
 // TODO funcoes para pegar dados do formulario preenchido pelo usuario
 function savePoint(marker) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const point = {
-                titulo: `TODO titulo dado pelo usuario ${increment += 1}`,
+                titulo: `TODO titulo dado pelo usuario`,
                 tipo: `TODO tipo de ocorrencia dado pelo usuario`,
                 data: new Date(),
                 geom: marker.getPosition()

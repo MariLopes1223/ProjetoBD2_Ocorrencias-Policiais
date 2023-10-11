@@ -1,5 +1,5 @@
 import Marker from "./assets/Marker";
-
+import { inputData } from ".";
 interface Point{
     id: number;
     titulo: string;
@@ -8,15 +8,13 @@ interface Point{
     geom: any;
 }
 
-let increment = 0;
-
 // TODO funcoes para pegar dados do formulario preenchido pelo usuario
 async function savePoint(marker: Marker) {
     try {
         const point = {
-            titulo: `TODO titulo dado pelo usuario ${increment+=1}`,
-            tipo: `TODO tipo de ocorrencia dado pelo usuario`,
-            data: new Date(), //data e hora deve ser dada pelo usuario
+            titulo: inputData.titulo.value,
+            tipo: inputData.tipo.value,
+            data: new Date(`${inputData.data.value}`), //data e hora deve ser dada pelo usuario
             geom: marker.getPosition()
         }
   

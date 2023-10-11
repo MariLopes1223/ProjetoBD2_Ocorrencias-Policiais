@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Vector_1 = __importDefault(require("ol/layer/Vector"));
-const Vector_2 = __importDefault(require("ol/source/Vector"));
 const Feature_1 = __importDefault(require("ol/Feature"));
 const Point_1 = __importDefault(require("ol/geom/Point"));
+const source_js_1 = require("ol/source.js");
+const layer_js_1 = require("ol/layer.js");
 const proj_1 = require("ol/proj");
 const style_1 = require("ol/style");
 class Marker {
@@ -18,20 +18,31 @@ class Marker {
         this.map.addLayer(this.layer);
     }
     create() {
-        return new Vector_1.default({
-            source: new Vector_2.default(),
+        const markerFeature = new Feature_1.default({
+            geometry: new Point_1.default((0, proj_1.fromLonLat)(this.coordinates)),
         });
-    }
-    add() {
-        const marker = new Feature_1.default({
-            geometry: new Point_1.default((0, proj_1.fromLonLat)(this.coordinates))
-        });
-        marker.setStyle(new style_1.Style({
+        markerFeature.setStyle(new style_1.Style({
             image: this.icon
         }));
-        const markerSrc = this.layer.getSource();
-        markerSrc === null || markerSrc === void 0 ? void 0 : markerSrc.addFeature(marker);
+        const layer = new layer_js_1.Vector({
+            source: new source_js_1.Vector({
+                features: [markerFeature]
+            }),
+        });
+        return layer;
     }
+    // public add(): void{
+    //     const marker = new Feature({
+    //         geometry: new Point(fromLonLat(this.coordinates)),
+    //     });
+    //     marker.setStyle(
+    //         new Style({
+    //             image: this.icon
+    //         }),
+    //     );
+    //     const markerSrc = this.layer.getSource();
+    //     markerSrc?.addFeature(marker);
+    // }
     setIcon(path) {
         this.icon = new style_1.Icon({
             anchor: [0.5, 1],

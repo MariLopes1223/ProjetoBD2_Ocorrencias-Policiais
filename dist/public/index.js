@@ -29,22 +29,24 @@ const map = new Map_1.default({
 });
 exports.map = map;
 map.on('click', function (event) {
-    markers.forEach((marker) => marker.remove());
+    if (markers.length - 1 >= 0)
+        markers[markers.length - 1].remove();
     const coordinates = (0, proj_1.toLonLat)(event.coordinate);
     const marker = new Marker_1.default(map, icon, coordinates);
-    marker.add();
+    // marker.add();
     markers.push(marker);
 });
 btnRegister === null || btnRegister === void 0 ? void 0 : btnRegister.addEventListener('click', () => {
-    // console.log(locals[locals.length - 1]);
     const marker = markers[markers.length - 1];
+    markers.pop();
     (0, Map_controller_1.savePoint)(marker);
+    map.changed();
 });
 function showPoints() {
     (0, Map_controller_1.getPoints)().then(pnts => {
         for (const p of pnts) {
             const marker = new Marker_1.default(map, icon, p.geom.coordinates);
-            marker.add();
+            // marker.add();
         }
     }).catch(err => {
         console.error(err);

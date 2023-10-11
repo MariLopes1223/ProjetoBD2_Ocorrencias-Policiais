@@ -17,26 +17,28 @@
       <div id="api">
         <image id="oficial" src="assets/policia.png"></image>
         <h1>Aplicação de Ocorrências Policiais</h1>
-        
+      
+          <div id="form">
+            
+          <form action="/processa-dados" method="post">
+            <label for="title">Título:</label>
+            <input type="text" id="titulo"/><br>
 
-      <div id="form">
-        
-      <form action="/processa-dados" method="post">
-        <label for="title">Título:</label>
-        <input type="text" id="titulo"/><br>
+            <label for="type">Tipo da ocorrência</label>
+            <input type="text" id="tipo"/><br>
 
-        <label for="type">Tipo da ocorrência</label>
-        <input type="text" id="tipo"/><br>
+            <label for="date">Dia e hora:</label>
+            <input type="datetime-local" id="data"/><br>
 
-        <label for="date">Dia:</label>
-          <input type="date" id="dia"/><br>
-
-<button id="register" type="button">Register</button> 
-      </form>
-    </div></div>
+            <button id="register" type="button">Register</button> 
+          </form>
+        </div>
+      </div>
       <div id="map"></div>
+      <div id="popup"></div>
     </div>
 
     <script type="module" src="bundle.js"></script>
+    
   </body>
 </html>

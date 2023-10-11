@@ -1,10 +1,11 @@
-import Map from 'ol/Map';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
 import Feature from 'ol/Feature';
+import Map from 'ol/Map';
 import Point from 'ol/geom/Point';
+import { Vector as VectorSource} from 'ol/source.js';
+import { Vector as VectorLayer} from 'ol/layer.js';
 import { fromLonLat } from 'ol/proj';
 import { Icon, Style } from 'ol/style';
+
 
 class Marker {
     private coordinates!: number[];
@@ -20,25 +21,22 @@ class Marker {
         this.map.addLayer(this.layer);
     }
 
+
     private create(): VectorLayer<VectorSource<Point>> {
-        return new VectorLayer({
-        source: new VectorSource(),
-        });
-    }
-
-    public add(): void{
-        const marker = new Feature({
-            geometry: new Point(fromLonLat(this.coordinates))
-        });
-
-        marker.setStyle(
+        const markerFeature = new Feature({
+            geometry: new Point(fromLonLat(this.coordinates)),
+        })
+        markerFeature.setStyle(
             new Style({
                 image: this.icon
             }),
-        );
-
-        const markerSrc = this.layer.getSource();
-        markerSrc?.addFeature(marker);
+        )
+        const layer =  new VectorLayer({
+            source: new VectorSource({
+                features: [ markerFeature ]
+            }),
+        })
+        return layer
     }
     
     private setIcon(path: string) {
