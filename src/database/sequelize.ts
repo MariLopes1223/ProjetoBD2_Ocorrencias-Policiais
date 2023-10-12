@@ -1,8 +1,9 @@
 import { Sequelize } from "sequelize";
-import { PG_DATABASE, PG_HOST, PG_PASSWORD, PG_PORT, PG_USER } from './config';
+import { PG_DATABASE, PG_HOST, PG_PASSWORD, PG_USER } from './config';
 
 const sequelize = new Sequelize(PG_DATABASE, PG_USER, PG_PASSWORD,{
     host: PG_HOST,
+    port: 5432,
     dialect: 'postgres'
 });
 
