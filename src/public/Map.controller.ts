@@ -1,6 +1,5 @@
 import Marker from "./assets/Marker";
 import { inputData } from ".";
-import { Point as ExportedPoint } from "ol/geom";
 interface Point{
     id: number;
     titulo: string;
