@@ -1,51 +1,68 @@
 @import "node_modules/ol/ol.css";
 
-#main #map{
-  position: relative;
-  width: 60%;
-  cursor: pointer;
-  z-index: 1;
+html, body {
+  margin: 0;
+  height: 100%;
+  background-color: #213555;
+  display: flex;
+  flex-direction: column;
+}
+
+#main {
+  display: flex;
+  flex: 1;
+}
+
+#api {
+  width: 35%;
+  text-align: center;
+  margin-top: 3%;
+
 }
 
 #map {
-  position: relative;
+  flex: 1;
+  width: 60%;
   height: 100vh;
-  float: right;
+  cursor: pointer;
 }
 
-#api{
-  position: static;
-  float: left;
-  text-align: center;
-  margin-top: 3%;
-  padding-left: 60px;
+h1 {
+  color: #F0F0F0;
+  ;
 }
 
-h1{
-  color: #F99417;
+#oficial {
+  margin: 30px;
+  width: 35%;
 }
 
-#oficial{
-  margin: 50px;
-  width: 30%;
-}
-
-    
 #form {
-  position: relative;
-  padding-top: 25%;
+  padding-top: 15%;
   text-align: center;
 }
 
-label{
-  color: #F99417;
-  font-size: large;
+label {
+  margin: 10px;
+  color: #F0F0F0;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-html,
-body {
-  margin: 0;
-  height: 100%;
-  background-color: #363062;
+input{
+  margin: 10px;
+  background-color: #F0F0F0;
+  border-radius: 5px;
+  font-size: 1.3rem;
 }
 
+button{
+  margin-top: 20px;
+  width: 90px;
+  height: 35px;
+  font-size: 1.1rem;
+  background-color: #FFFF;
+  border-radius: 5px;
+  border: #F0F0F0;
+  font-weight: 400;
+}
