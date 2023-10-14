@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Location API - OpenLayers & TypeScript</title>
-    <script src="https://cdn.jsdelivr.net/npm/ol@v8.1.0/dist/ol.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/ol@v8.1.0/ol.css"/>
-    <link rel="stylesheet" href="style.css"/>
+    <title>Ocorrências Policiais - API</title>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <link rel="shortcut icon" href="./assets/fav-icon.svg" type="image/x-icon">
+
+    <!-- <script src="https://cdn.jsdelivr.net/npm/ol@v8.1.0/dist/ol.js"></script> -->
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v8.1.0/ol.css"/> -->
+    <link rel="stylesheet" href="./assets/style.css">
   </head>
-
   <body>
-
     <div id="main">
       <div id="api">
-        <image id="oficial" src="assets/policia.png"></image>
-        <h1>Aplicação de Ocorrências Policiais</h1>
-      
-          <div id="form">
-            
+        <div id="header">
+          <image id="oficial" src="assets/policia.png"></image>
+          <h1>Ocorrências Policiais</h1>
+        </div>
+
+        <div id="form">
           <form action="/processa-dados" method="post">
             <label for="title">Título:</label>
             <input type="text" id="titulo"/><br>
@@ -34,11 +35,19 @@
           </form>
         </div>
       </div>
+
       <div id="map"></div>
-      <div id="popup"></div>
+
+      <div id="popup">
+        <div id="infos">
+          <p id="titulo"></p>
+          <p id="tipo"></p>
+          <p id="data"></p>
+        </div>
+        <img src="./assets/infos.svg" width="25px">
+      </div>
     </div>
 
-    <script type="module" src="bundle/bundle.js"></script>
-    
+    <script type="module" src="bundle.js"></script>
   </body>
 </html>

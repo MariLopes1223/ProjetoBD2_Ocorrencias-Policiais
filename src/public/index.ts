@@ -1,63 +1,93 @@
-import Map from 'ol/Map';
-import View from 'ol/View';
-import TileLayer from 'ol/layer/Tile';
-import OSM from 'ol/source/OSM';
-import { fromLonLat, toLonLat } from 'ol/proj';
-import Marker from './assets/Marker';
-import { savePoint, getPoints} from './Map.controller';
-import { Overlay } from 'ol';
-const icon = './assets/point.svg';
+/*
+   LeaFlet usa o sistema [latitude, longitude] 
+   PostgreSQL usa o sistema [longitude, latitude]
+*/
+import * as L from 'leaflet';
+import { savePoint, getPoints, Point} from './Map.controller';
+
+//ESTILIZANDO O MARCADOR
+const customDefaultIcon = new L.Icon.Default({
+  iconSize: [16, 22],
+  iconAnchor: [10, 10],
+  shadowAnchor: [15, 28]
+});
+
+L.Marker.prototype.options.icon = customDefaultIcon;
+
+const map = L.map('map').setView([-6.89,-38.56], 15);
+let marker: L.Marker;
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+}).addTo(map);
+
+let clicked = true;
+map.on('click', (evt) => {
+  if (clicked) {
+    clicked = false;
+    const coordinates = evt.latlng;
+    console.log(evt.latlng);
+  
+    marker = L.marker(coordinates).addTo(map);
+  }
+});
+
+const form = document.querySelectorAll('input');
+function getFormValues() {
+    const obj: { [key: string]:string } = {};
+  
+    form.forEach((element) => {
+      obj[element.id] = element.value;
+    })
+
+    return obj;
+}
+
+const infos = document.querySelector('#infos') as Element;
+function showInfos(point: Point){
+  infos.classList.add('visible');
+
+  const titulo = document.querySelector('p#titulo') as Element;
+  const tipo = document.querySelector('p#tipo') as Element;
+  const data = document.querySelector('p#data') as Element;
+
+  titulo.textContent = `Título: ${point.titulo}`;
+  tipo.textContent = `Tipo: ${point.tipo}`;
+  data.textContent = `Data: ${new Date(point.data).toLocaleString()}`;
+}
+
+function toLngLat(coordinates: L.LatLng){
+  return [coordinates.lng, coordinates.lat];
+}
+
+function toLatLon(coordinates: number[]) {
+  return { lat: coordinates[1], lng: coordinates[0] };
+}
 
 const btnRegister = document.querySelector('#register');
-const markers:Marker[] = [];
-
-const map = new Map({
-  target: 'map',
-  layers: [
-    new TileLayer({
-      source: new OSM(),
-    }),
-
-  ],
-  view: new View({
-    center: fromLonLat([-38.56, -6.89]),
-    zoom: 15,
-  }),
-});
-
-map.on('click', function (event) {
-  if(markers.length - 1 >= 0)
-    markers[markers.length-1].remove()
-  const coordinates = toLonLat(event.coordinate);
-  const marker = new Marker(map, icon, coordinates);
-  markers.push(marker);
-});
-
-const titulo = document.querySelector('#titulo') as HTMLInputElement
-const tipo = document.querySelector('#tipo') as HTMLInputElement
-const data = document.querySelector('#data') as HTMLInputElement
-export const inputData = { titulo, tipo, data }
-
 btnRegister?.addEventListener('click', ()=>{
-  const marker = markers[markers.length-1];
-  markers.pop()
-  savePoint(marker);
-  map.changed()
+  const ocorrencia = getFormValues();
+  
+  savePoint(ocorrencia, toLngLat(marker.getLatLng()));
+
+  form.forEach((element) => {
+    element.value = '';
+  })
 });
 
 function showPoints() {
-  
-  getPoints().then( pnts => {
+  getPoints().then(pnts => {    
     for (const p of pnts) {
-      const marker = new Marker(map, icon, p.geom.coordinates);
+      const m = L.marker(toLatLon(p.geom.coordinates)).addTo(map);
+      m.on('mouseover', () => {
+        showInfos(p);
+      });
+      m.on('mouseout', () => {
+        infos.classList.remove('visible');
+      });
     }
   }).catch(err => {
     console.error(err);
   });
 }
-
 showPoints();
-
-
-
-export {map, markers as locals};

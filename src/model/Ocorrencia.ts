@@ -1,15 +1,13 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../database/sequelize';
 
-class Ocorrencias extends Model {
+class Ocorrencia extends Model {
     public id!: number;
-    public titulo!: string;
-    public tipo!: string;
-    public data!: Date;
+    public name!: string;
     public geom!: any;
 }
 
-Ocorrencias.init(
+Ocorrencia.init(
     {
         id: {
             type: DataTypes.UUID,
@@ -35,15 +33,14 @@ Ocorrencias.init(
     },
     {
         sequelize,
-        tableName: 'locations'
+        tableName: 'ocorrencias'
     }
 );
 
 async function sync() {
-    await Ocorrencias.sync();
+    await Ocorrencia.sync();
     console.log('SYNCED');
 }
-
 sync();
 
-export default Ocorrencias;
+export default Ocorrencia;
