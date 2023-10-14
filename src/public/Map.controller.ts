@@ -28,7 +28,7 @@ async function savePoint(infos: any, coordinates: number[]) {
     }
 
     alert('SUCESS');
-
+    window.location.reload()
   } catch (error) {
     alert('ERROR: ' + error);
   }

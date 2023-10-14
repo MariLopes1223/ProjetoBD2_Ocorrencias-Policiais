@@ -64,12 +64,10 @@ function toLatLon(coordinates: number[]) {
 }
 
 const btnRegister = document.querySelector('#register');
-btnRegister?.addEventListener('click', ()=>{
+btnRegister?.addEventListener('click', (event)=>{
   const ocorrencia = getFormValues();
   
   savePoint(ocorrencia, toLngLat(markers[markers.length -1].getLatLng()));
-
-  window.location.reload()
 });
 
 function showPoints() {
