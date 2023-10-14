@@ -15,21 +15,20 @@ const customDefaultIcon = new L.Icon.Default({
 L.Marker.prototype.options.icon = customDefaultIcon;
 
 const map = L.map('map').setView([-6.89,-38.56], 15);
-let marker: L.Marker;
+let markers: L.Marker[] = [];
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
 }).addTo(map);
 
-let clicked = true;
 map.on('click', (evt) => {
-  if (clicked) {
-    clicked = false;
-    const coordinates = evt.latlng;
-    console.log(evt.latlng);
+  if(markers.length - 1 >= 0)
+    markers[markers.length-1].remove()
+  const coordinates = evt.latlng;
+  console.log(evt.latlng);
   
-    marker = L.marker(coordinates).addTo(map);
-  }
+  markers.push(L.marker(coordinates).addTo(map));
+  
 });
 
 const form = document.querySelectorAll('input');
@@ -68,11 +67,9 @@ const btnRegister = document.querySelector('#register');
 btnRegister?.addEventListener('click', ()=>{
   const ocorrencia = getFormValues();
   
-  savePoint(ocorrencia, toLngLat(marker.getLatLng()));
+  savePoint(ocorrencia, toLngLat(markers[markers.length -1].getLatLng()));
 
-  form.forEach((element) => {
-    element.value = '';
-  })
+  window.location.reload()
 });
 
 function showPoints() {
