@@ -16,13 +16,16 @@ A aplicação permite que o usuário crie registros de uma ocorrência policial 
 API_PORT = 3000
 PG_USER = postgres
 PG_PASSWORD = postgres
-PG_DATABASE = geo
+PG_DATABASE = (nome do seu banco de dados)
 PG_HOST = localhost
 ```
+Após isso, executar no terminal os seguintes comandos:
 
 1. ```npm i```
 2. ```npm run pack```
 3. ```npm start```
+
+Ao final, a aplicação estará pronta para uso.
 
 ## Tecnologias utilizadas
 
