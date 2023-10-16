@@ -1,5 +1,6 @@
 import express, {Request, Response} from 'express';
-import { create, list, find } from '../controller/Location.controller';
+import path from 'path';
+import { create, list, find } from '../controller/Ocorrencia.controller';
 
 const location_router = express.Router();
 

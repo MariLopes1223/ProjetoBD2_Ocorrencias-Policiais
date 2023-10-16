@@ -1,60 +1,59 @@
-import Marker from "./assets/Marker";
-
-interface Point{
-    id: number;
-    name: string;
-    geom: any;
+interface Point {
+  titulo: string;
+  tipo: string;
+  data: Date;
+  geom: any;
 }
 
-let increment = 0;
-
-async function savePoint(marker: Marker) {
-    try {
-        const point = {
-            name: `local ${increment+=1}`,
-            coordinates: marker.getPosition()
-        }
-  
-        const resp = await fetch('http://localhost:3000/location', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(point)
-        });
-        
-        if (!resp.ok) {
-            throw new Error('ERROR IN REQUEST');
-        }
-  
-        alert('SUCESS');
-
-    } catch (error) {
-        alert('ERROR: ' + error);
+async function savePoint(infos: any, coordinates: number[]) {
+  try {
+    const point: Point = {
+      ...infos,
+      geom: coordinates
     }
+
+    console.log(point);
+    
+    const resp = await fetch(`http://localhost:3000/ocorrencias`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(point)
+    });
+
+    if (!resp.ok) {
+      throw new Error('ERROR IN REQUEST');
+    }
+
+    alert('SUCESS');
+    window.location.reload()
+  } catch (error) {
+    alert('ERROR: ' + error);
+  }
 }
 
 async function getPoints(): Promise<Point[]> {
-    try {
-        const resp = await fetch('http://localhost:3000/location', {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json'
-          },
-        });
+  try {
+    const resp = await fetch(`http://localhost:3000/ocorrencias`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      },
+    });
 
-        if (!resp.ok) {
-            throw new Error('ERROR IN REQUEST');
-        }
-
-        const locals = await resp.json();
-
-        return locals as Point[];
-    } catch (error) {
-        alert('ERROR: ' + error);
-        throw error;
+    if (!resp.ok) {
+      throw new Error('ERROR IN REQUEST');
     }
+
+    const locals = await resp.json();
+
+    return locals as Point[];
+  } catch (error) {
+    alert('ERROR: ' + error);
+    throw error;
+  }
 }
 
-export { savePoint, getPoints };
+export { savePoint, getPoints, Point };
