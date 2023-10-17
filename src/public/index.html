@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ocorrências Policiais - API</title>
+    <title>Registro de Ocorrências Policiais - API</title>
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <link rel="shortcut icon" href="./assets/fav-icon.svg" type="image/x-icon">
@@ -17,11 +17,11 @@
       <div id="api">
         <div id="header">
           <image id="oficial" src="assets/policia.png"></image>
-          <h1>Ocorrências Policiais</h1>
+          <h1>Registro de ocorrências policiais</h1>
         </div>
 
         <div id="form">
-          <form action="/processa-dados" method="post">
+          <form method="post">
             <label for="title">Título:</label>
             <input type="text" id="titulo"/><br>
 
@@ -31,7 +31,9 @@
             <label for="date">Dia e hora:</label>
             <input type="datetime-local" id="data"/><br>
 
-            <button id="register" type="button">Registrar</button> 
+            <button id="register" type="button">Registrar</button><br>
+
+            <a href="ocorrencias.html" id="mostraOcorrencias">Ocorrências Registradas</a>
           </form>
         </div>
       </div>
@@ -46,6 +48,7 @@
         </div>
         <img src="./assets/infos.svg" width="25px">
       </div>
+
     </div>
 
     <script type="module" src="bundle.js"></script>
