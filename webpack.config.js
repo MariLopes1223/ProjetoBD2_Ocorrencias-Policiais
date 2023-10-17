@@ -19,4 +19,11 @@ module.exports = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },
+  devServer: {
+    port: 8080,
+    static: {
+      directory: path.join(__dirname,'src', 'public'),
+    },
+    open: true
+  }
 };
